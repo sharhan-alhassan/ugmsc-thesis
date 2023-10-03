@@ -17,7 +17,7 @@ def calculate_merkle_root(data, hash_function):
     return calculate_merkle_root(new_level, hash_function)
 
 # Provide the desired value for generating random numbers
-desired_value = 10000000
+desired_value = 100000
 
 # Generate a list of 60 different random numbers
 numbers = random.sample(range(1, 100000000000), desired_value)
