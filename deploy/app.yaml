@@ -22,10 +22,11 @@ spec:
             apt-get install git -y
             apt-get install python3 -y
             apt-get install python3-venv -y
+            # apt-get install python3-pip -y
             git clone https://github.com/sharhan-alhassan/ugmsc-thesis.git
             cd ugmsc-thesis
             python3 -m venv venv
-            source venv/bin/activate
+            # source venv/bin/activate
             sleep infinity
         ports:
         - containerPort: 8080
