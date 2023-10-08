@@ -29,7 +29,7 @@ def calculate_merkle_root(data, hash_functions):
 
 def main():
     # Read data from the "transactions.json" file
-    with open("./code/data/50000.json", "r") as json_file:
+    with open("../code/data/5000.json", "r") as json_file:
         transactions = json.load(json_file)
 
     # Convert each transaction dictionary to bytes and hash them
