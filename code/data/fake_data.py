@@ -3,7 +3,7 @@ import random
 from faker import Faker
 
 # Set the number of dictionaries you want to generate
-num_transactions = 100000  # You can change this to 10,000 or any desired number
+num_transactions = 10  # You can change this to 10,000 or any desired number
 
 fake = Faker()
 
@@ -23,7 +23,9 @@ for _ in range(num_transactions):
     transactions.append(transaction)
 
 # Write the list of dictionaries to a JSON file
-with open("./data/100000.json", "w") as json_file:
+file_name = f"{num_transactions}.json"
+
+with open(file_name, "w") as json_file:
     json.dump(transactions, json_file, indent=4)
 
-print(f"{num_transactions} random transactions have been generated and saved to transactions.json.")
+print(f"{num_transactions} random transactions have been generated and saved to {num_transactions}.json.")
