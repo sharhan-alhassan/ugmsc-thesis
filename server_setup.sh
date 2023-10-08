@@ -1,6 +1,6 @@
 #!/bin/bash
 sudo apt update -y
-sudo apt install software-properties-common
+sudo apt install software-properties-common -y
 sudo add-apt-repository ppa:deadsnakes/ppa
 sudo apt update -y
 sudo apt install python3 -y
