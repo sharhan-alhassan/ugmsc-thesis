@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ugmsc-thesis-app
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: ugmsc-thesis-app
+  template:
+    metadata:
+      labels:
+        app: ugmsc-thesis-app
+    spec:
+      containers:
+      - name: ugmsc-thesis-app
+        image: debian:bullseye-slim
+        command: ["/bin/bash", "-c"]
+        args:
+          - |
+            apt-get update -y
+            apt-get install git -y
+            apt-get install python3 -y
+            apt-get install python3-venv -y
+            git clone https://github.com/sharhan-alhassan/ugmsc-thesis.git
+            cd ugmsc-thesis
+            python3 -m venv venv
+            source venv/bin/activate
+            sleep infinity
+        ports:
+        - containerPort: 8080
+      restartPolicy: Always
+

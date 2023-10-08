@@ -2,6 +2,7 @@ import pyRAPL
 import time
 import json
 import hashlib
+import sys  # Import the sys module to access command-line arguments
 
 def calculate_merkle_root(data, hash_function):
     if len(data) == 1:
@@ -18,10 +19,9 @@ def calculate_merkle_root(data, hash_function):
     
     return calculate_merkle_root(new_level, hash_function)
 
-
-def main():
-    # Read data from the "transactions.json" file
-    with open("../code/data/5000.json", "r") as json_file:
+def main(json_filename):
+    # Read data from the specified JSON file
+    with open(json_filename, "r") as json_file:
         transactions = json.load(json_file)
 
     # Convert each transaction dictionary to bytes and hash them
@@ -51,13 +51,18 @@ def main():
     final_merkle_root = hash_list[0]
     print("Final Merkle Root:", final_merkle_root.hex())
 
-pyRAPL.setup()
-measure = pyRAPL.Measurement('bar')
-with measure:
-    measure.begin()
+if __name__ == "__main__":
+    if len(sys.argv) != 2:
+        print("Usage: python3 main.py <json_filename>")
+        sys.exit(1)
 
-    main()
-
-    measure.end()
+    json_filename = sys.argv[1]
     
+    pyRAPL.setup()
+    measure = pyRAPL.Measurement('bar')
+    with measure:
+        measure.begin()
 
+        main(json_filename)
+
+        measure.end()
