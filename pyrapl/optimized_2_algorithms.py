@@ -29,8 +29,8 @@ def main(json_filename):
 
     # Define the hash functions for each group
     hash_functions = [
-        hashlib.sha3_224,
         hashlib.sha3_384,
+        hashlib.sha3_224,
         # hashlib.sha384,
         # hashlib.sha224
     ]
