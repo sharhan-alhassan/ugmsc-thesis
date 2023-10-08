@@ -1,5 +1,5 @@
-import random
 import hashlib
+import json
 
 def calculate_merkle_root(data, hash_function):
     if len(data) == 1:
@@ -16,21 +16,19 @@ def calculate_merkle_root(data, hash_function):
     
     return calculate_merkle_root(new_level, hash_function)
 
-# Provide the desired value for generating random numbers
-desired_value = 1000000
+# Read data from the "transactions.json" file
+with open("./data/50000.json", "r") as json_file:
+    transactions = json.load(json_file)
 
-# Generate a list of 60 different random numbers
-numbers = random.sample(range(1, 100000000000), desired_value)
-
-# Convert the numbers to bytes
-byte_numbers = [str(num).encode() for num in numbers]
+# Convert each transaction dictionary to bytes and hash them
+byte_numbers = [json.dumps(transaction, sort_keys=True).encode() for transaction in transactions]
 
 # Define the hash functions for each group
 hash_functions = [
     hashlib.sha3_384,
     hashlib.sha3_224,
-    hashlib.sha384,
-    hashlib.sha224
+    # hashlib.sha384,
+    # hashlib.sha224
 ]
 
 # Initial hash of individual members of the list

@@ -1,5 +1,6 @@
 import random
 import hashlib
+import hashlib
 
 def calculate_merkle_root(data, hash_function):
     if len(data) == 1:
@@ -17,7 +18,7 @@ def calculate_merkle_root(data, hash_function):
     return calculate_merkle_root(new_level, hash_function)
 
 # Provide the desired value for generating random numbers
-desired_value = 10000000
+desired_value = 1000000
 
 # Generate a list of 60 different random numbers
 numbers = random.sample(range(1, 100000000000), desired_value)
@@ -27,24 +28,14 @@ byte_numbers = [str(num).encode() for num in numbers]
 
 # Define the hash functions for each group
 hash_functions = [
-    hashlib.sha3_512,
-    hashlib.sha3_256,
+    hashlib.sha256,
     hashlib.sha512,
-    hashlib.sha512
+    hashlib.sha3_256,
+    hashlib.sha3_512
 ]
 
-# Initial hash of individual members of the list
-hash_list = [hash_function(number).digest() for number, hash_function in zip(byte_numbers, hash_functions)]
-
-# Grouping in pairs and hashing
-while len(hash_list) > 1:
-    new_level = []
-    for i in range(0, len(hash_list), 2):
-        combined = hash_list[i] + hash_list[i+1]
-        new_hash = hash_functions[1](combined).digest()
-        new_level.append(new_hash)
-    hash_list = new_level
-
-# Final Merkle root
-final_merkle_root = hash_list[0]
-print("Final Merkle Root:", final_merkle_root.hex())
+# Iterate through hash functions and calculate Merkle root for each group
+for group_idx, hash_function in enumerate(hash_functions):
+    # print(f"\nGroup {group_idx + 1} (Using {hash_function.__name__}):")
+    merkle_root = calculate_merkle_root(byte_numbers, hash_function)
+    # print("Merkle Root:", merkle_root.hex())
